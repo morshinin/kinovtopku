@@ -12,8 +12,8 @@
         </div>
       </router-link>
     </div>
-    <form @submit.prevent="" class="search-box">
-      <input type="text" placeholder="Search something...">
+    <form @submit.prevent="SearchMovies()" class="search-box">
+      <input type="text" placeholder="Search something..." v-model="search">
       <input type="submit" value="Search">
     </form>
     <div class="movies-list">
@@ -23,10 +23,25 @@
 </template>
 
 <script>
-// @ is an alias to /src
+import { ref } from 'vue';
 
 export default {
+  setup() {
+    const search = ref("");
+    const movies = ref([]);
 
+    const SearchMovies = () => {
+      if (search.value !== "") {
+        console.log(search.value)
+      }
+    }
+
+    return {
+      search,
+      movies,
+      SearchMovies
+    }
+  }
 }
 </script>
 
@@ -113,7 +128,7 @@ export default {
           &:active {
             background-color: #3B8070;
           }
-      }
+        }
       }
     }
   }
