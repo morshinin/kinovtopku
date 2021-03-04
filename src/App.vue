@@ -1,7 +1,7 @@
 <template>
-  <header>
+  <header class="main-header">
     <router-link to="/">
-      <h1><span>Kino</span>Vtopku</h1>
+      <h1 class="main-title"><span>Kino</span>Vtopku</h1>
     </router-link>
   </header>
   <main>
@@ -29,7 +29,7 @@ a {
   text-decoration: none;
 }
 
-header {
+.main-header {
   display: flex;
   align-items: center;
   justify-content: center;
@@ -38,7 +38,7 @@ header {
   box-shadow: 0 0 6pc rgba(0, 0, 0, .1);
 }
 
-h1 {
+.main-title {
   color: #FFFFFF;
   font-size: 28px;
 
