@@ -17,13 +17,27 @@
       <input type="submit" value="Search">
     </form>
     <div class="movies-list">
-      Movies
+      <div class="movie" v-for="movie in movies" :key="movie.imdbID">
+        <router-link :to="'/movie/' + movie.imdbID" class="movie-link">
+          <div class="product-image">
+            <img :src="movie.Poster" alt="Movie Poster">
+            <div class="type">
+              {{ movie.Type }}
+            </div>
+          </div>
+          <div class="movie-detail">
+            <p class="year">{{ movie.Year }}</p>
+            <h3>{{ movie.Title }}</h3>
+          </div>
+        </router-link>
+      </div>
     </div>
   </div>
 </template>
 
 <script>
 import { ref } from 'vue';
+import env from '@/env.js';
 
 export default {
   setup() {
@@ -32,7 +46,12 @@ export default {
 
     const SearchMovies = () => {
       if (search.value !== "") {
-        console.log(search.value)
+        fetch(`http://www.omdbapi.com/?apikey=${env.apikey}&s=${search.value}`)
+        .then(response => response.json())
+        .then(data => {
+          movies.value = data.Search;
+          search.value = '';
+        })
       }
     }
 
@@ -127,6 +146,64 @@ export default {
           
           &:active {
             background-color: #3B8070;
+          }
+        }
+      }
+    }
+
+    .movies-list {
+      display: flex;
+      flex-wrap: wrap;
+      margin: 0 8px;
+
+      .movie {
+        max-width: 50%;
+        flex: 1 1 50%;
+        padding: 16px 8px;
+
+        &-link {
+          display: flex;
+          flex-direction: column;
+          height: 100%;
+
+          .product-image {
+            position: relative;
+            display: block;
+            
+            img {
+              display: block;
+              width: 100%;
+              height: 275px;
+              object-fit: cover;
+            }
+
+            .type {
+              position: absolute;
+              padding: 8px 16px;
+              background-color: #42B883;
+              color: #FFFFFF;
+              bottom: 16px;
+              left: 0;
+              text-transform: capitalize;
+            }
+          }
+
+          .movie-detail {
+            background-color: #496583;
+            padding: 16px 8px;
+            flex: 1 1 100%;
+            border-radius: 0 0 8px 8px;
+
+            .year {
+              color: #AAAAAA;
+              font-size: 14px;
+            }
+
+            h3 {
+              color: #FFFFFF;
+              font-weight: 600;
+              font-size: 18px;
+            }
           }
         }
       }
