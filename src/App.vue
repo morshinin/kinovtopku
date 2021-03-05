@@ -1,49 +1,38 @@
 <template>
-  <header class="main-header">
-    <router-link to="/">
-      <h1 class="main-title"><span>Kino</span>Vtopku</h1>
-    </router-link>
+  <header class="main-header mb-4">
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+      <router-link to="/" class="navbar-brand d-flex align-items-center">
+        <img :src="require('@/assets/fine.png')" alt="Kinovtopku logo" width="60" height="62">
+        <h2 class="main-title">Kino<span class="font-weight-lighter">Vtopku</span></h2>
+      </router-link>
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav mr-auto">
+          <li class="nav-item active">
+            <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
+          </li>
+        </ul>
+        <form class="form-inline my-2 my-lg-0">
+          <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
+          <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+        </form>
+      </div>
+    </nav>
   </header>
   <main>
     <router-view/>
   </main>
+  <footer class="container-fluid">
+    <div class="row">
+      <div class="col p-2 mt-2">
+        <p class="text-center"><small>Morshinin &copy; 2021</small></p>
+      </div>
+    </div>
+  </footer>
 </template>
 
 <style lang="scss">
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-  font-family: "Fira Sans", sans-serif;
 
-  &::selection {
-    background: transparentize(#42B883, .5);
-  }
-}
-
-body {
-  background-color: #35495E;
-}
-
-a {
-  text-decoration: none;
-}
-
-.main-header {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  padding: 10px 16px;
-  background-color: #2C3D4E;
-  box-shadow: 0 0 6pc rgba(0, 0, 0, .1);
-}
-
-.main-title {
-  color: #FFFFFF;
-  font-size: 28px;
-
-  span {
-    color: #42B883;
-  }
-}
 </style>
