@@ -27,7 +27,7 @@
   <footer class="container-fluid">
     <div class="row">
       <div class="col p-2 mt-2">
-        <p class="text-center"><small>Morshinin &copy; 2021</small></p>
+        <p class="text-center"><small>Morshinin &copy; 2021. Themoviedb.com is the data source</small></p>
       </div>
     </div>
   </footer>
