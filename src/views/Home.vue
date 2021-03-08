@@ -2,7 +2,7 @@
   <div>
     <div class="container" >
       <div class="row mt-4">
-        <div class="col-3">
+        <div class="col-2">
           <YearPick @change-year="setYear" />
         </div>
         <div class="col-3">

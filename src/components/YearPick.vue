@@ -1,10 +1,14 @@
 <template>
   <form @submit="onSubmit" class="row row-cols-lg-auto g-3 align-items-center">
-    <div class="mb-3 d-flex align-items-center col-9">
-      <label for="year" class="form-label">Year:</label>
+    <div class="input-group input-group-sm">
+      <div class="input-group-prepend">
+        <label for="year" class="form-label input-group-text">Year</label>
+      </div>
       <input type="number" class="form-control" id="year" min="1910" max="2021" v-model.number="year">
+      <div class="input-group-append">
+        <button type="submit" class="btn btn-light btn-outline-secondary">Find</button>
+      </div>
     </div>
-    <button type="submit" class="btn btn-light col-3">Submit</button>
   </form>
 </template>
 
