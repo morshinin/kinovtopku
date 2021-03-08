@@ -18,34 +18,32 @@
             </dl>
             <dl>
               <dt>Cast:</dt>
-              <dd>{{ cast }}</dd>
+              <dd v-if="show_cast">{{ cast }}</dd>
+              <dd v-else>No info about cast</dd>
             </dl>
-            <div id="myCarusel" class="carousel slide" data-bs-ride="carousel">
-              <div class="carousel-indicators">
-                <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
-                <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="1" aria-label="Slide 2"></button>
-                <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="2" aria-label="Slide 3"></button>
-              </div>
+            <p><strong>Screenshots:</strong></p>
+            <div id="custCarousel" class="carousel slide" data-ride="carousel" align="center" v-if="show_images">
+              <!-- slides -->
               <div class="carousel-inner">
-                <div class="carousel-item active">
-                  <img src="http://via.placeholder.com/640x360" class="d-block w-100" alt="...">
-                </div>
-                <div class="carousel-item">
-                  <img src="http://via.placeholder.com/640x360" class="d-block w-100" alt="...">
-                </div>
-                <div class="carousel-item">
-                  <img src="http://via.placeholder.com/640x360" class="d-block w-100" alt="...">
+                <div class="carousel-item" v-for="(image, index) in images" :key="index" :class="[index === 1 ? 'active': '']">
+                  <img :src="'http://image.tmdb.org/t/p/w500' + image.file_path" alt="Hills"
+                  :width="image.width" :height="image.height">
                 </div>
               </div>
-              <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleIndicators"  data-bs-slide="prev">
-                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                <span class="visually-hidden">Previous</span>
-              </button>
-              <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleIndicators"  data-bs-slide="next">
-                <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                <span class="visually-hidden">Next</span>
-              </button>
+              <!-- Left right -->
+              <a class="carousel-control-prev" href="#custCarousel" data-slide="prev"> <span class="carousel-control-prev-icon"></span> </a> <a class="carousel-control-next" href="#custCarousel" data-slide="next"> <span class="carousel-control-next-icon"></span> </a> <!-- Thumbnails -->
+              <ol class="carousel-indicators list-inline">
+                    <li class="list-inline-item" v-for="(image, index) in images" :key="index"
+                        :class="[index === 1 ? 'active': '']">
+                      <a id="carousel-selector-0" class="selected" data-slide-to="0" data-target="#custCarousel">
+                        <img :src="'http://image.tmdb.org/t/p/w200' + image.file_path" class="img-fluid">
+                      </a>
+                    </li>
+              </ol>
             </div>
+            <p v-else>
+              No images for this movie.
+            </p>
           </div>
         </article>
       </div>
@@ -54,28 +52,35 @@
 </template>
 
 <script>
-// import { useRoute } from 'vue-router';
-// import env from '@/env';
-// import { onBeforeMount } from 'vue';
+import { useRoute } from 'vue-router';
+import env from '@/env';
 
 export default {
   data() {
     return {
       movie: {},
       credits: {},
+      images: [],
       director: '',
-      cast: ''
+      cast: '',
+      route: useRoute(),
+      show_images: true,
+      show_cast: true
     }
   },
   methods: {
     async getMovie() {
-      const res = await fetch('https://api.themoviedb.org/3/movie/550?api_key=98f4cab67b355180ab627cb8f0145c43&language=en-US');
+      const res = await fetch(`https://api.themoviedb.org/3/movie/${this.$route.params.id}?api_key=${env.apikey}&language=en-US`);
       this.movie = await res.json();
     },
     async getCredits() {
-      const res = await fetch(`https://api.themoviedb.org/3/movie/550/credits?api_key=98f4cab67b355180ab627cb8f0145c43&language=en-US`);
+      const res = await fetch(`https://api.themoviedb.org/3/movie/${this.$route.params.id}/credits?api_key=${env.apikey}&language=en-US`);
       this.credits = await res.json();
       this.director = this.credits.crew[0].name;
+      if (this.credits.cast.length === 0) {
+        this.show_cast = false;
+        return;
+      }
       let i = 0;
       while (i <= 5) {
         this.cast += this.credits.cast[i].name;
@@ -84,15 +89,61 @@ export default {
           this.cast += ', ';
         }
       }
+    },
+    async getImages() {
+      const res = await fetch(`https://api.themoviedb.org/3/movie/${this.$route.params.id}/images?api_key=${env.apikey}`);
+      this.images = await res.json();
+      this.images = this.images.backdrops;
+      if (this.images.length === 0) {
+        this.show_images = false;
+      }
     }
   },
   mounted() {
     this.getMovie();
     this.getCredits();
+    this.getImages();
   }
 }
 </script>
 
-<style scoped>
+<style lang="scss" scoped>
+.carousel-inner img {
+  width: 100%;
+  height: 100%
+}
+
+#custCarousel .carousel-indicators {
+  position: static;
+  margin-top: 20px
+}
+
+#custCarousel .carousel-indicators>li {
+  width: 100px
+}
+
+#custCarousel .carousel-indicators li img {
+  display: block;
+  opacity: 0.5
+}
+
+#custCarousel .carousel-indicators li.active img {
+  opacity: 1
+}
+
+#custCarousel .carousel-indicators li:hover img {
+  opacity: 0.75
+}
+
+.carousel-item img {
+  width: 80%
+}
+
+#custCarousel {
+  .carousel-control-next,
+  .carousel-control-prev {
+    background-color: #AAAAAA;
+  }
+}
 
 </style>
