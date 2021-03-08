@@ -13,9 +13,6 @@
           </svg>
         </a>
       </div>
-      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
-      </button>
     </nav>
   </header>
   <main>
@@ -24,7 +21,7 @@
   <footer class="container-fluid">
     <div class="row">
       <div class="col p-2 mt-2">
-        <p class="text-center"><small>Morshinin &copy; 2021. Themoviedb.com is the data source</small></p>
+        <p class="text-center"><small>Morshinin &copy; 2021. Data provided by themoviedb.com</small></p>
       </div>
     </div>
   </footer>

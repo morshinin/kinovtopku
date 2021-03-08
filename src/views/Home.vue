@@ -1,17 +1,17 @@
 <template>
   <div>
-    <div class="container" >
+    <div class="container-md" >
       <div class="row mt-4">
-        <div class="col-2">
+        <div class="col-lg-2">
           <YearPick @change-year="setYear" />
         </div>
-        <div class="col-3 d-flex align-items-center">
+        <div class="col-lg-3 d-flex align-items-center">
           <MovieTypeSelector @change-type="setType" />
         </div>
       </div>
       <div class="row my-4" v-for="(movie, index) in movies" :key="movie.id" :index="index">
         <article class="col">
-          <div class="card flex-row">
+          <div class="card">
             <div class="card-header text-white text-lg-center h5">{{ index + 1 }}</div>
             <img class="card-img-left" :src="'http://image.tmdb.org/t/p/w200' + movie.poster_path"
                  v-if="movie.poster_path" alt="Card image cap"
@@ -71,6 +71,10 @@ export default {
 
 <style scoped lang="scss">
 .card {
+  @media screen and (min-width: 768px) {
+    flex-direction: row;
+  }
+
   &-header {
     background: #34e89e;
     background: linear-gradient(to top, #0f3443, #34e89e);
