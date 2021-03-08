@@ -12,14 +12,14 @@
       <div class="row my-4" v-for="(movie, index) in movies" :key="movie.id" :index="index">
         <article class="col">
           <div class="card flex-row">
-            <div class="card-header">{{ index + 1 }}</div>
+            <div class="card-header text-white text-lg-center h5">{{ index + 1 }}</div>
             <img class="card-img-left" :src="'http://image.tmdb.org/t/p/w200' + movie.poster_path"
                  v-if="movie.poster_path" alt="Card image cap"
             width="200" height="300">
             <img src="https://via.placeholder.com/200x300" alt="No image" v-else width="200" height="300">
             <div class="card-body">
               <h1 class="card-title">{{ movie.title ?? movie.name }}</h1>
-              <p><strong>Release date:&nbsp;</strong><small>{{ movie.release_date ?? movie.first_air_date }}</small></p>
+              <p><small><strong>Release date:</strong>&nbsp;{{ movie.release_date ?? movie.first_air_date }}</small></p>
               <p class="card-text">{{ movie.overview == '' ? 'No overview for this film' : movie.overview }}</p>
               <p>
                 <router-link :to="'/movie/' + movie.id +'?type=' + type" class="btn btn-link stretched-link">
@@ -69,6 +69,16 @@ export default {
 }
 </script>
 
-<style scoped>
+<style scoped lang="scss">
+.card {
+  &-header {
+    background: #34e89e;
+    background: linear-gradient(to top, #0f3443, #34e89e);
+  }
 
+  &:hover {
+     box-shadow: 0px 3px 10px rgba(0, 0, 0, .1);
+     transition: .1s ease-in-out box-shadow;
+   }
+}
 </style>
