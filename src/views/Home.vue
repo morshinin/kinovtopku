@@ -5,7 +5,7 @@
         <div class="col-2">
           <YearPick @change-year="setYear" />
         </div>
-        <div class="col-3">
+        <div class="col-3 d-flex align-items-center">
           <MovieTypeSelector @change-type="setType" />
         </div>
       </div>

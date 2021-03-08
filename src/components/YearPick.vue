@@ -1,5 +1,5 @@
 <template>
-  <form @submit="onSubmit" class="row row-cols-lg-auto g-3 align-items-center">
+  <form @submit="onSubmit">
     <div class="input-group input-group-sm">
       <div class="input-group-prepend">
         <label for="year" class="form-label input-group-text">Year</label>
