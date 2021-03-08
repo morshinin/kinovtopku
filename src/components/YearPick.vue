@@ -4,7 +4,7 @@
       <label for="year" class="form-label">Year:</label>
       <input type="number" class="form-control" id="year" min="1910" max="2021" v-model.number="year">
     </div>
-    <button type="submit" class="btn btn-primary col-3">Submit</button>
+    <button type="submit" class="btn btn-light col-3">Submit</button>
   </form>
 </template>
 

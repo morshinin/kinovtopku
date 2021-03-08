@@ -11,7 +11,6 @@
       </div>
       <div class="row my-4" v-for="(movie, index) in movies" :key="movie.id" :index="index">
         <article class="col">
-          <router-link :to="'/movie/' + movie.id +'?type=' + type">
           <div class="card flex-row">
             <div class="card-header">{{ index + 1 }}</div>
             <img class="card-img-left" :src="'http://image.tmdb.org/t/p/w200' + movie.poster_path"
@@ -20,11 +19,15 @@
             <img src="https://via.placeholder.com/200x300" alt="No image" v-else width="200" height="300">
             <div class="card-body">
               <h1 class="card-title">{{ movie.title ?? movie.name }}</h1>
-              <p><small>{{ movie.release_date ?? movie.first_air_date }}</small></p>
+              <p><strong>Release date:&nbsp;</strong><small>{{ movie.release_date ?? movie.first_air_date }}</small></p>
               <p class="card-text">{{ movie.overview == '' ? 'No overview for this film' : movie.overview }}</p>
+              <p>
+                <router-link :to="'/movie/' + movie.id +'?type=' + type" class="btn btn-link stretched-link">
+                  Подробнее...
+                </router-link>
+              </p>
             </div>
           </div>
-          </router-link>
         </article>
       </div>
     </div>

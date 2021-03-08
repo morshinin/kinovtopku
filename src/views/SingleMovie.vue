@@ -4,14 +4,26 @@
       <div class="col">
         <article>
           <header>
-            <img :src="'http://image.tmdb.org/t/p/w200' + movie.poster_path" class="img-fluid" :alt="movie.title + 'poster'">
+            <img :src="'http://image.tmdb.org/t/p/w200' + movie.poster_path" class="img-fluid" :alt="movie.title + 'poster'"
+            v-if="movie.poster_path">
+            <img src="https://via.placeholder.com/200x300" alt="Image placeholder" v-else>
             <h1 class="">{{ movie.title ?? movie.name }}</h1>
-            <p><small>{{ movie.release_date ?? movie.first_air_date }}</small></p>
           </header>
           <div>
-            <p>
-              {{ movie.overview ?? 'No overview' }}
-            </p>
+            <dl>
+              <dt>Overview:</dt>
+              <dd>
+                {{ movie.overview ?? 'No overview' }}
+              </dd>
+            </dl>
+            <dl>
+              <dt>
+                Release date:
+              </dt>
+              <dd>
+                {{ movie.release_date ?? movie.first_air_date }}
+              </dd>
+            </dl>
             <dl>
               <dt>Director:</dt>
               <dd>{{ director !== '' ? director : 'No info about director' }}</dd>
