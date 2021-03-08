@@ -23,7 +23,8 @@ export default {
     changeFilmType() {
       this.$emit('change-type', this.film_type);
     }
-  }
+  },
+  emits: ['change-type']
 }
 </script>
 

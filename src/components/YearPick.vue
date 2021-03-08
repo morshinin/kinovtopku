@@ -25,7 +25,8 @@ export default {
       e.preventDefault();
       this.$emit('change-year', this.year)
     }
-  }
+  },
+  emits: ['change-year']
 }
 </script>
 

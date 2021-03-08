@@ -37,7 +37,7 @@
             <div id="custCarousel" class="carousel slide" data-ride="carousel" align="center" v-if="show_images">
               <!-- slides -->
               <div class="carousel-inner">
-                <div class="carousel-item" v-for="(image, index) in images" :key="index" :class="[index === 1 ? 'active': '']">
+                <div class="carousel-item" v-for="(image, index) in images" :key="index" :class="[index === 0 ? 'active': '']">
                   <img :src="'http://image.tmdb.org/t/p/w500' + image.file_path" alt="Hills"
                   :width="image.width" :height="image.height">
                 </div>
