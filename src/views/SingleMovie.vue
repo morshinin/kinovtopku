@@ -2,19 +2,19 @@
   <div class="container">
     <div class="row">
       <div class="col">
-        <article class="">
+        <article>
           <header>
             <img :src="'http://image.tmdb.org/t/p/w200' + movie.poster_path" class="img-fluid" :alt="movie.title + 'poster'">
-            <h1 class="">{{ movie.title }}</h1>
-            <p><small>{{ movie.release_date }}</small></p>
+            <h1 class="">{{ movie.title ?? movie.name }}</h1>
+            <p><small>{{ movie.release_date ?? movie.first_air_date }}</small></p>
           </header>
-          <div class="">
-            <p class="">
-              {{ movie.overview }}
+          <div>
+            <p>
+              {{ movie.overview ?? 'No overview' }}
             </p>
             <dl>
               <dt>Director:</dt>
-              <dd>{{ director }}</dd>
+              <dd>{{ director !== '' ? director : 'No info about director' }}</dd>
             </dl>
             <dl>
               <dt>Cast:</dt>
@@ -65,19 +65,20 @@ export default {
       cast: '',
       route: useRoute(),
       show_images: true,
-      show_cast: true
+      show_cast: true,
+      type: this.$route.query.type
     }
   },
   methods: {
     async getMovie() {
-      const res = await fetch(`https://api.themoviedb.org/3/movie/${this.$route.params.id}?api_key=${env.apikey}&language=en-US`);
+      console.log();
+      const res = await fetch(`https://api.themoviedb.org/3/${this.type}/${this.$route.params.id}?api_key=${env.apikey}&language=en-US`);
       this.movie = await res.json();
     },
     async getCredits() {
-      const res = await fetch(`https://api.themoviedb.org/3/movie/${this.$route.params.id}/credits?api_key=${env.apikey}&language=en-US`);
+      const res = await fetch(`https://api.themoviedb.org/3/${this.type}/${this.$route.params.id}/credits?api_key=${env.apikey}&language=en-US`);
       this.credits = await res.json();
-      this.director = this.credits.crew[0].name;
-      if (this.credits.cast.length === 0) {
+      if (this.credits.cast.length === 0 || this.credits.crew.length === 0) {
         this.show_cast = false;
         return;
       }
@@ -89,15 +90,16 @@ export default {
           this.cast += ', ';
         }
       }
+      this.director = this.credits.crew[0].name;
     },
     async getImages() {
-      const res = await fetch(`https://api.themoviedb.org/3/movie/${this.$route.params.id}/images?api_key=${env.apikey}`);
+      const res = await fetch(`https://api.themoviedb.org/3/${this.type}/${this.$route.params.id}/images?api_key=${env.apikey}`);
       this.images = await res.json();
       this.images = this.images.backdrops;
       if (this.images.length === 0) {
         this.show_images = false;
       }
-    }
+    },
   },
   mounted() {
     this.getMovie();
