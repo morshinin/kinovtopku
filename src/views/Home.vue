@@ -1,7 +1,12 @@
 <template>
   <div>
-    <div class="container" v-for="(movie, index) in movies" :key="movie.id" :index="index">
-      <div class="row my-2">
+    <div class="container" >
+      <div class="row mt-4">
+        <div class="col">
+          <YearPick @change-year="fetchMoviesList" />
+        </div>
+      </div>
+      <div class="row my-4" v-for="(movie, index) in movies" :key="movie.id" :index="index">
         <article class="col">
           <router-link :to="'/movie/' + movie.id">
           <div class="card flex-row">
@@ -23,25 +28,25 @@
 </template>
 
 <script>
-import { ref, onBeforeMount } from 'vue';
 import env from '@/env';
+import YearPick from "@/components/YearPick";
 
 export default {
-  setup() {
-    const movies = ref([]);
-
-    onBeforeMount(() => {
-      fetch(`https://api.themoviedb.org/3/discover/movie?api_key=${env.apikey}&language=en-US&sort_by=popularity.asc&include_adult=false&include_video=false&page=1`)
-        .then(response => response.json())
-        .then(data => {
-          movies.value = data.results;
-          console.log(movies.value);
-        })
-    })
-
+  components: {YearPick},
+  data() {
     return {
-      movies
+      movies: {},
     }
+  },
+  methods: {
+    async fetchMoviesList(year) {
+      const res = await fetch(`https://api.themoviedb.org/3/discover/movie?api_key=${env.apikey}&language=en-US&sort_by=popularity.asc&include_adult=false&include_video=false&primary_release_year=${year}&page=1`)
+      this.movies = await res.json();
+      this.movies = this.movies.results;
+    },
+  },
+  mounted() {
+    this.fetchMoviesList();
   }
 }
 </script>
