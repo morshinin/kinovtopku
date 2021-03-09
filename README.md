@@ -1,24 +1,19 @@
-# kinovtopku
+# Киновтопку
 
-## Project setup
-```
-npm install
-```
+__Автор:__ Моршинин Михаил
+__Email:__ inbox@morshinin.ru
 
-### Compiles and hot-reloads for development
-```
-npm run serve
-```
+## О проекте
 
-### Compiles and minifies for production
-```
-npm run build
-```
+Это тестовое задание для компании ПП.
 
-### Lints and fixes files
-```
-npm run lint
-```
+## Как запустить
 
-### Customize configuration
-See [Configuration Reference](https://cli.vuejs.org/config/).
+1. Склонировать репо
+2. После этого npm install
+3. Далее npm run serve
+
+**Если данные не загружаются, возможно потребуется подключить
+VPN. Данные берутся из API themoviedb.org и у меня почему-то
+без VPN подключиться к нему не получается** 
+
